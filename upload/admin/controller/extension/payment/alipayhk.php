@@ -29,9 +29,9 @@ class ControllerExtensionPaymentAlipayhk extends Controller {
 			$this->response->redirect($this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true));
 		}
 
-		$data['error_warning'] = $this->error['warning'] ?? '';
-		$data['error_token'] = $this->error['token'] ?? '';
-		$data['error_store_id'] = $this->error['store_id'] ?? '';
+		$data['error_warning'] = isset($this->error['warning']) ? $this->error['warning'] : '';
+		$data['error_token'] = isset($this->error['token']) ? $this->error['token'] : '';
+		$data['error_store_id'] = isset($this->error['store_id']) ? $this->error['store_id'] : '';
 
 		$data['breadcrumbs'] = array();
 
@@ -88,7 +88,7 @@ class ControllerExtensionPaymentAlipayhk extends Controller {
 	public function setData($data)
 	{
 		foreach ($this->paramKeys as $key) {
-			$data[$key] = $this->request->post[$key] ?? $this->config->get($key);
+			$data[$key] = isset($this->request->post[$key]) ? $this->request->post[$key] : $this->config->get($key);
 		}
 		return $data;
 	}
